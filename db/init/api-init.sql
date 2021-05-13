@@ -16,7 +16,7 @@ INSERT INTO users (user_id, password) VALUES
 -- タスク本体
 CREATE TABLE contents (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT, -- 管理用id
-    user_id INT UNSIGNED NOT NULL, -- タスクを入力したユーザーのid -- usersテーブルのid
+    user_id VARCHAR(30) NOT NULL, -- タスクを入力したユーザーのid -- usersテーブルのid
     text TEXT NOT NULL, -- タスク名
     task_limit DATETIME DEFAULT NULL, -- タスク完了期限
     done TINYINT(1) DEFAULT 0, -- タスクが完了したか？ 0 => false, 0以外(通常1) => true

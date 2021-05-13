@@ -26,14 +26,14 @@ module.exports = (app) =>
 
     passport.use(new LocalStrategy(
         {
-            usernameField: "user_id",
+            usernameField: "userid",
             passwordField: 'password'
         },
-        (user_id, password, done) => {
+        (userid, password, done) => {
             pool.getConnection((error, con) => {
                 con.query(
                     'SELECT * FROM users WHERE user_id = ?',
-                    [user_id],
+                    [userid],
                     (error, results) => {
                         if (results.length > 0) {
                             if (password === results[0].password) {
