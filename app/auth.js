@@ -12,8 +12,16 @@ module.exports = (app) =>
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
-    passport.deserializeUser(function (id, done) {
-        done(null, id);
+    passport.deserializeUser((id, done) => {
+        pool.getConnection((error, con) => {
+            con.query(
+                'SELECT * FROM users WHERE id=?',
+                [id],
+                (error, results) => {
+                    const user_id = results[0].user_id;
+                    done(null, user_id);
+            })
+        })
     });
 
     passport.use(new LocalStrategy(

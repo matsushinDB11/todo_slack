@@ -16,7 +16,7 @@ INSERT INTO users (user_id, password) VALUES
 -- タスク本体
 CREATE TABLE contents (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT, -- 管理用id
-    user_id INT UNSIGNED NOT NULL, -- タスクを入力したユーザーのid -- usersテーブルのid
+    user_id VARCHAR(30) NOT NULL, -- タスクを入力したユーザーのid -- usersテーブルのid
     text TEXT NOT NULL, -- タスク名
     task_limit DATETIME DEFAULT NULL, -- タスク完了期限
     done TINYINT(1) DEFAULT 0, -- タスクが完了したか？ 0 => false, 0以外(通常1) => true
@@ -25,7 +25,7 @@ CREATE TABLE contents (
 
 -- テスト用サンプルタスク
 INSERT INTO contents (user_id, text) VALUES
-    (1, 'データベース定義の作成'), (2, '認証周りの実装'),
-    (3, 'hoge'), (4, 'hogege'),
-    (1, '初期SQL作成'), (2, '認証周りの検証'),
-    (3, 'fuga'), (4, 'fugaga');
+    ('matsumoto01', 'データベース定義の作成'), ('kasukabe01', '認証周りの実装'),
+    ('sakaguchi01', 'hoge'), ('kawase01', 'hogege'),
+    ('matsumoto01', '初期SQL作成'), ('kasukabe01', '認証周りの検証'),
+    ('sakaguchi01', 'fuga'), ('kawase01', 'fugaga');
