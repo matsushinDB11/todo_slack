@@ -59,7 +59,8 @@ router.post('/',
         // con.connect();
         con.query(
             'INSERT INTO users (user_id, password) VALUES(?, ?)',
-            [userId, password], function (error, results, fields) {
+            [userId, password],
+            function (error, results, fields) {
                 if (error) throw error;
                 req.login(userId, (err) => {
                     if (err) {return err}
