@@ -59,15 +59,19 @@ router.post('/',
         // con.connect();
         con.query(
             'INSERT INTO users (user_id, password) VALUES(?, ?)',
-            [userId, password], function (error, results, fields) {
+            [userId, password],
+            function (error, results, fields) {
                 if (error) throw error;
-                // res.redirect('/login');
+                req.login(userId, (err) => {
+                    if (err) {return err}
+                    return res.redirect('/');
+                })
             });
         con.query(
             'INSERT INTO contents (user_id, text) VALUES(?,?)',
             [userId, '初めまして'], (error, results) => {
                 if (error) throw error;
-                res.redirect('/login');
+                // res.redirect('/');
             });
         // con.end();
     },
