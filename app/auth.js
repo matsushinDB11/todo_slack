@@ -2,6 +2,7 @@ const DBpool = require('./dbpool')
 const bcypt = require('bcrypt') // パスワードハッシュ化
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy;
+const User = require('./serch_userid')
 
 
 const pool = DBpool.createPool();
@@ -12,15 +13,23 @@ module.exports = (app) =>
     passport.serializeUser(function (user, done) {
         done(null, user.id);
     });
+    // passport.deserializeUser((id, done) => {
+    //     pool.getConnection((error, con) => {
+    //         con.query(
+    //             'SELECT * FROM users WHERE id=?',
+    //             [id],
+    //             (error, results) => {
+    //                 const user_id = results[0].user_id;
+    //                 done(null, user_id);
+    //         })
+    //     })
+    // });
+
     passport.deserializeUser((id, done) => {
-        pool.getConnection((error, con) => {
-            con.query(
-                'SELECT * FROM users WHERE id=?',
-                [id],
-                (error, results) => {
-                    const user_id = results[0].user_id;
-                    done(null, user_id);
-            })
+        const user_id = User.getUserid(id);
+        user_id.then((result) => {
+            console.log(result);
+            done(null, result)
         })
     });
 
